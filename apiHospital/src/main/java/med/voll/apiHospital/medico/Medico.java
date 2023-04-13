@@ -23,6 +23,7 @@ public class Medico {
     @Enumerated(EnumType.STRING)
     private Especialidade especialidade;
     private String telefone;
+    private boolean ativo;
 
     @Embedded
     private Endereco endereco;
@@ -34,5 +35,22 @@ public class Medico {
         this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
         this.telefone = dados.telefone();
+        this.ativo = true;
+    }
+
+    public void atualizarInfomacoes(DadosAtualizarMedico dados) {
+        if(dados.nome() != null){
+            this.nome = dados.nome();
+        }
+        if(dados.telefone() != null){
+            this.telefone = dados.telefone();
+        }
+        if(dados.endereco() != null){
+            this.endereco.atualizarInformacoes(dados.endereco());
+        }
+    }
+
+    public void excluir() {
+        this.ativo = false;
     }
 }

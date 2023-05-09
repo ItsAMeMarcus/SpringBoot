@@ -1,0 +1,1 @@
+alter table estudante drop column idade;

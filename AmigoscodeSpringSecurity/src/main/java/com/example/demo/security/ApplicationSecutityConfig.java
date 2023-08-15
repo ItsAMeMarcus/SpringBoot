@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static com.example.demo.security.ApplicationUserRole.*;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
@@ -31,6 +32,7 @@ public class ApplicationSecutityConfig {
                 .authorizeHttpRequests((authz) ->
                         authz
                         .requestMatchers("index.html","/").permitAll()
+                        .requestMatchers("/api/**").hasRole(STUDENT.name())
                         .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults());
@@ -43,11 +45,18 @@ public class ApplicationSecutityConfig {
         UserDetails someoneUser = User.builder()
                 .username("Someone")
                 .password(passwordEncoder.encode("password"))
-                .roles("STUDENT")
+                .roles(STUDENT.name())
+                .build();
+
+        UserDetails someAdminUser = User.builder()
+                .username("Some Admin User")
+                .password(passwordEncoder.encode("password123"))
+                .roles(ADMIN.name())
                 .build();
 
         return new InMemoryUserDetailsManager(
-                someoneUser
+                someoneUser,
+                someAdminUser
         );
     }
 

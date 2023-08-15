@@ -54,9 +54,16 @@ public class ApplicationSecutityConfig {
                 .roles(ADMIN.name())
                 .build();
 
+        UserDetails someTraineeUser = User.builder()
+                .username("Some Trainee User")
+                .password(passwordEncoder.encode("password456"))
+                .roles(ADMINTRAINEE.name())
+                .build();
+
         return new InMemoryUserDetailsManager(
                 someoneUser,
-                someAdminUser
+                someAdminUser,
+                someTraineeUser
         );
     }
 

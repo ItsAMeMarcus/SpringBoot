@@ -52,19 +52,22 @@ public class ApplicationSecutityConfig {
         UserDetails someoneUser = User.builder()
                 .username("Someone")
                 .password(passwordEncoder.encode("password"))
-                .roles(STUDENT.name())
+//                .roles(STUDENT.name())
+                .authorities(STUDENT.getGrantedAutorities())
                 .build();
 
         UserDetails someAdminUser = User.builder()
                 .username("Some Admin User")
                 .password(passwordEncoder.encode("password123"))
-                .roles(ADMIN.name())
+//                .roles(ADMIN.name())
+                .authorities(ADMIN.getGrantedAutorities())
                 .build();
 
         UserDetails someTraineeUser = User.builder()
                 .username("Some Trainee User")
                 .password(passwordEncoder.encode("password456"))
-                .roles(ADMINTRAINEE.name())
+//                .roles(ADMINTRAINEE.name())
+                .authorities(ADMINTRAINEE.getGrantedAutorities())
                 .build();
 
         return new InMemoryUserDetailsManager(

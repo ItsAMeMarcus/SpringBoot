@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import static com.example.demo.security.ApplicationUserPermission.*;
 import static com.example.demo.security.ApplicationUserRole.*;
@@ -36,7 +35,7 @@ public class ApplicationSecutityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
-                .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((authz) ->
                         authz
                         .requestMatchers("index.html","/").permitAll()

@@ -42,7 +42,7 @@ public class ApplicationSecutityConfig {
                         .requestMatchers("/api/**").hasRole(STUDENT.name())
                         .anyRequest().authenticated()
                 )
-                .httpBasic(withDefaults());
+                .formLogin(withDefaults());
         return http.build();
     }
 
